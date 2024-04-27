@@ -47,7 +47,11 @@ func pipelineLast(c *cli.Context) error {
 		return err
 	}
 
-	pipeline, err := client.PipelineLast(repoID, c.String("branch"))
+	opt := woodpecker.PipelineLastOptions{
+		Branch: c.String("branch"),
+	}
+
+	pipeline, err := client.PipelineLast(repoID, opt)
 	if err != nil {
 		return err
 	}

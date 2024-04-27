@@ -54,7 +54,7 @@ func pipelineStart(c *cli.Context) (err error) {
 	var number int64
 	if pipelineArg == "last" {
 		// Fetch the pipeline number from the last pipeline
-		pipeline, err := client.PipelineLast(repoID, "")
+		pipeline, err := client.PipelineLast(repoID, woodpecker.PipelineLastOptions{})
 		if err != nil {
 			return err
 		}
