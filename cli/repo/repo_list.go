@@ -22,6 +22,7 @@ import (
 
 	"go.woodpecker-ci.org/woodpecker/v2/cli/common"
 	"go.woodpecker-ci.org/woodpecker/v2/cli/internal"
+	"go.woodpecker-ci.org/woodpecker/v2/woodpecker-go/woodpecker"
 )
 
 var repoListCmd = &cli.Command{
@@ -35,6 +36,10 @@ var repoListCmd = &cli.Command{
 			Name:  "org",
 			Usage: "filter by organization",
 		},
+		&cli.BoolFlag{
+			Name:  "all",
+			Usage: "query all repos, including inactive ones",
+		},
 	},
 }
 
@@ -44,7 +49,11 @@ func repoList(c *cli.Context) error {
 		return err
 	}
 
-	repos, err := client.RepoList()
+	opt := woodpecker.RepoListOptions{
+		All: c.Bool("all"),
+	}
+
+	repos, err := client.RepoList(opt)
 	if err != nil || len(repos) == 0 {
 		return err
 	}

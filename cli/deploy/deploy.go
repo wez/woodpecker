@@ -78,7 +78,7 @@ func deploy(c *cli.Context) error {
 	var number int64
 	if pipelineArg == "last" {
 		// Fetch the pipeline number from the last pipeline
-		pipelines, berr := client.PipelineList(repoID, woodpecker.PipelineListsOptions{})
+		pipelines, berr := client.PipelineList(repoID, woodpecker.PipelineListOptions{})
 		if berr != nil {
 			return berr
 		}
